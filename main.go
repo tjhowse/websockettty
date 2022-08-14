@@ -27,6 +27,8 @@ func main() {
 // ║        ║
 // ╚════════╝
 
+// (I have clipped this to match the 10x10 terminal size hardcoded in the websockettty package)
+
 func normal() {
 	// Build a tview application
 	app := tview.NewApplication()
