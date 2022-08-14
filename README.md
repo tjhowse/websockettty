@@ -76,18 +76,28 @@ has no supported characters in its list, so everything gets replaced with the fa
 character.
 
 ```go
-	tty := websockettty.WebsocketTty{}
-	ti, _ := tcell.LookupTerminfo("tmux")
-	screen, err := tcell.NewTerminfoScreenFromTtyTerminfo(&tty, ti)
-	if err != nil {
-		log.Fatal(err)
-	}
-	screen.Init()
-	if !screen.CanDisplay('=', false) {
-		log.Fatal("Your terminal cannot display the equals sign")
-	} else {
-		fmt.Println("Can display equals sign")
-	}
+tty := websockettty.WebsocketTty{}
+ti, _ := tcell.LookupTerminfo("tmux")
+screen, err := tcell.NewTerminfoScreenFromTtyTerminfo(&tty, ti)
+if err != nil {
+    log.Fatal(err)
+}
+screen.Init()
+if !screen.CanDisplay('=', false) {
+    log.Fatal("Your terminal cannot display the equals sign")
+} else {
+    fmt.Println("Can display equals sign")
+}
 ```
 
-This passes the CanDisplay check though...
+This passes the CanDisplay check though. But when I...
+
+```go
+app.SetScreen(screen)
+go app.Run()
+// Crudely give it some time to draw.
+time.Sleep(time.Millisecond * 100)
+fmt.Printf("%s", tty.Screenbuffer)
+```
+
+I get the question marks again.
