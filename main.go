@@ -11,7 +11,12 @@ import (
 )
 
 func main() {
+	// This doesn't work
 	withWebsocketTty(false)
+
+	// This does
+	// withWebsocketTty(true)
+
 	// normal()
 }
 
