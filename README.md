@@ -40,3 +40,7 @@ Reality:
 ??????????
 ??????????
 ```
+
+I initially hit this issue after sending the screen buffer over websocket to xterm.js
+in the browser and I assumed it was an xterm rendering problem. I put together a minimal
+example printing to a local console and got the same problem.
