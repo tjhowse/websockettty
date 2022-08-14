@@ -1,10 +1,5 @@
 package websockettty
 
-// This is going to be a knockoff of tcell.tScreen, but with accessors that let us see into the
-// cellbuffer so we can send them out over websocket.
-
-// We might be able to get away with using NewTerminfoScreenFromTtyTerminfo and passing it a custom Tty.
-
 // Boilerplate generated with
 // impl 'w *WebsocketTty' tcell.Tty
 type WebsocketTty struct {

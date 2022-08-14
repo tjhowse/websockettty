@@ -32,8 +32,6 @@ func normal() {
 	app := tview.NewApplication()
 	box := tview.NewBox().SetBorder(true).SetTitle("Hi")
 	app.SetRoot(box, true)
-
-	// Start the application running in the backgroun.
 	app.Run()
 }
 
@@ -54,6 +52,7 @@ func withWebsocketTty() {
 	// Make a WebsocketTty object
 	tty := websockettty.WebsocketTty{}
 	// Look up a terminfo definition might should work
+	// I have tried a few others, including xterm-256color.
 	ti, err := tcell.LookupTerminfo("screen-256color")
 	if err != nil {
 		log.Fatal(err)
