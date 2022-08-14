@@ -1,6 +1,8 @@
 package websockettty
 
-import "math"
+import (
+	"math"
+)
 
 const screenBufferSize = 1024
 
@@ -50,19 +52,27 @@ func (w *WebsocketTty) NotifyResize(cb func()) {
 // WindowSize is called to determine the terminal dimensions.  This might be determined
 // by an ioctl or other means.
 func (w *WebsocketTty) WindowSize() (width int, height int, err error) {
-	return 10, 10, nil
+	return 2, 2, nil
 }
 
 func (w *WebsocketTty) Read(p []byte) (n int, err error) {
 	// This should receive keypress data from the websocket.
-	panic("not implemented") // TODO: Implement
-	// return 0, nil
+	// panic("not implemented") // TODO: Implement
+	return 0, nil
 }
 
 func (w *WebsocketTty) Write(p []byte) (n int, err error) {
+	// fmt.Printf("%c", p)
+	// fmt.Printf("%s", p)
+	// fmt.Printf("Got %d bytes\n", len(p))
+
+	// t := []byte{27, 91, 63, 50, 53, 108, 27, 40, 66, 27, 91, 109, 27, 93, 56, 59, 59, 27, 92, 27, 91, 72, 27, 91, 50, 74, 27, 91, 49, 59, 49, 72, 27, 40, 66, 27, 91, 109, 27, 93, 56, 59, 59, 27, 92, 63, 63, 27, 91, 50, 59, 49, 72, 63, 63, 27, 91, 63, 50, 53, 108}
+	// fmt.Println(p)
+	// fmt.Print("Write")
 	for i := 0; i < screenBufferSize; i++ {
 		if i < len(p) {
 			w.Screenbuffer[i] = p[i]
+			// fmt.Printf("%s", p[i])
 		} else {
 			w.Screenbuffer[i] = 0
 		}
