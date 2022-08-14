@@ -44,3 +44,29 @@ Reality:
 I initially hit this issue after sending the screen buffer over websocket to xterm.js
 in the browser and I assumed it was an xterm rendering problem. I put together a minimal
 example printing to a local console and got the same problem.
+
+# The Solution?
+
+I made it even simpler and printed bytes to console, then decode the terminal escape sequences.
+```
+	// \x1b[?25l		hide cursor
+	// \x1b(B			exit acs
+	// \x1b[m			attr off
+	// \x1b]8;;\x1b\	exit URL
+	// \x1b[H			Home
+	// \x1b[2J			Clear, combined with previous
+	// \x1b[1;1H		Mod key? Something
+	// \x1b(B			exit acs
+	// \x1b[m			attr off
+	// \x1b]8;;\x1b\	exit URL
+	// ??				Actual text!
+	// \x1b[2;1H		Move to 2,1
+	// ??				Actual text
+	// \x1b[?25l		Hide cursor
+```
+So it looks like tview/tcell is producing the
+```
+??
+??
+```
+output rather than it being malformed somewhere after the screen buffer.
