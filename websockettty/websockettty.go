@@ -54,49 +54,18 @@ func (w *WebsocketTty) WindowSize() (width int, height int, err error) {
 	return 10, 10, nil
 }
 
-// Read reads up to len(p) bytes into p. It returns the number of bytes
-// read (0 <= n <= len(p)) and any error encountered. Even if Read
-// returns n < len(p), it may use all of p as scratch space during the call.
-// If some data is available but not len(p) bytes, Read conventionally
-// returns what is available instead of waiting for more.
-//
-// When Read encounters an error or end-of-file condition after
-// successfully reading n > 0 bytes, it returns the number of
-// bytes read. It may return the (non-nil) error from the same call
-// or return the error (and n == 0) from a subsequent call.
-// An instance of this general case is that a Reader returning
-// a non-zero number of bytes at the end of the input stream may
-// return either err == EOF or err == nil. The next Read should
-// return 0, EOF.
-//
-// Callers should always process the n > 0 bytes returned before
-// considering the error err. Doing so correctly handles I/O errors
-// that happen after reading some bytes and also both of the
-// allowed EOF behaviors.
-//
-// Implementations of Read are discouraged from returning a
-// zero byte count with a nil error, except when len(p) == 0.
-// Callers should treat a return of 0 and nil as indicating that
-// nothing happened; in particular it does not indicate EOF.
 func (w *WebsocketTty) Read(p []byte) (n int, err error) {
 	// This should receive keypress data from the websocket.
-	// panic("not implemented") // TODO: Implement
-	return 0, nil
+	panic("not implemented") // TODO: Implement
+	// return 0, nil
 }
 
-// Write writes len(p) bytes from p to the underlying data stream.
-// It returns the number of bytes written from p (0 <= n <= len(p))
-// and any error encountered that caused the write to stop early.
-// Write must return a non-nil error if it returns n < len(p).
-// Write must not modify the slice data, even temporarily.
 func (w *WebsocketTty) Write(p []byte) (n int, err error) {
-	// This should write screen character shit to the websocket.
-	// if w.writeCB != nil {
-	// 	return w.writeCB(p)
-	// }
 	for i := 0; i < len(w.Screenbuffer); i++ {
 		if i < len(p) {
 			w.Screenbuffer[i] = p[i]
+		} else {
+			w.Screenbuffer[i] = 0
 		}
 	}
 	return 0, nil

@@ -1,4 +1,4 @@
-module github.com/tjhowse/websocketty
+module github.com/tjhowse/websockettty
 
 go 1.18
 
