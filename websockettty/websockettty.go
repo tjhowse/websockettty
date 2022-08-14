@@ -2,11 +2,13 @@ package websockettty
 
 import "math"
 
+const screenBufferSize = 1024
+
 // Boilerplate generated with
 // impl 'w *WebsocketTty' tcell.Tty
 type WebsocketTty struct {
 	writeCB      func([]byte) (n int, err error)
-	Screenbuffer [1024]byte
+	Screenbuffer [screenBufferSize]byte
 }
 
 func (w *WebsocketTty) RegisterWriteCB(cb func([]byte) (n int, err error)) {
@@ -58,14 +60,14 @@ func (w *WebsocketTty) Read(p []byte) (n int, err error) {
 }
 
 func (w *WebsocketTty) Write(p []byte) (n int, err error) {
-	for i := 0; i < len(w.Screenbuffer); i++ {
+	for i := 0; i < screenBufferSize; i++ {
 		if i < len(p) {
 			w.Screenbuffer[i] = p[i]
 		} else {
 			w.Screenbuffer[i] = 0
 		}
 	}
-	return int(math.Min(float64(len(p)), float64(len(w.Screenbuffer)))), nil
+	return int(math.Min(float64(len(p)), screenBufferSize)), nil
 }
 
 func (w *WebsocketTty) Close() error {
