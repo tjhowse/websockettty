@@ -63,7 +63,7 @@ func (w *WebsocketTty) Write(p []byte) (n int, err error) {
 			w.Screenbuffer[i] = 0
 		}
 	}
-	return 0, nil
+	return len(p), nil
 }
 
 func (w *WebsocketTty) Close() error {
