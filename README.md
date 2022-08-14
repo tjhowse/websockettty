@@ -70,3 +70,24 @@ So it looks like tview/tcell is producing the
 ??
 ```
 output rather than it being malformed somewhere after the screen buffer.
+
+My best guess is that the tcell.Screen I'm generating with NewTerminfoScreenFromTtyTerminfo
+has no supported characters in its list, so everything gets replaced with the fallback "?"
+character.
+
+```go
+    tty := websockettty.WebsocketTty{}
+	ti, _ := tcell.LookupTerminfo("tmux")
+	screen, err := tcell.NewTerminfoScreenFromTtyTerminfo(&tty, ti)
+	if err != nil {
+		log.Fatal(err)
+	}
+	screen.Init()
+	if !screen.CanDisplay('=', false) {
+		log.Fatal("Your terminal cannot display the equals sign")
+	} else {
+        fmt.Println("Can display equals sign")
+    }
+```
+
+This passes the CanDisplay check though...
