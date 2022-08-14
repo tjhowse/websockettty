@@ -76,7 +76,7 @@ has no supported characters in its list, so everything gets replaced with the fa
 character.
 
 ```go
-    tty := websockettty.WebsocketTty{}
+	tty := websockettty.WebsocketTty{}
 	ti, _ := tcell.LookupTerminfo("tmux")
 	screen, err := tcell.NewTerminfoScreenFromTtyTerminfo(&tty, ti)
 	if err != nil {
