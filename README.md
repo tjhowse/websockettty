@@ -86,8 +86,8 @@ character.
 	if !screen.CanDisplay('=', false) {
 		log.Fatal("Your terminal cannot display the equals sign")
 	} else {
-        fmt.Println("Can display equals sign")
-    }
+		fmt.Println("Can display equals sign")
+	}
 ```
 
 This passes the CanDisplay check though...
