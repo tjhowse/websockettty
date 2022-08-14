@@ -1,5 +1,7 @@
 package websockettty
 
+import "math"
+
 // Boilerplate generated with
 // impl 'w *WebsocketTty' tcell.Tty
 type WebsocketTty struct {
@@ -63,7 +65,7 @@ func (w *WebsocketTty) Write(p []byte) (n int, err error) {
 			w.Screenbuffer[i] = 0
 		}
 	}
-	return len(p), nil
+	return int(math.Min(float64(len(p)), float64(len(w.Screenbuffer)))), nil
 }
 
 func (w *WebsocketTty) Close() error {
