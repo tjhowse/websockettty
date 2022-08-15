@@ -101,3 +101,7 @@ fmt.Printf("%s", tty.Screenbuffer)
 ```
 
 I get the question marks again.
+
+# The Solution!
+
+https://github.com/rivo/tview/issues/756
